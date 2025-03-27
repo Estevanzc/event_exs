@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+{% block conteudo %}
+<br>
+<form action="event_adc.php" method="post">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+    </div>
+    <div>
+        <label for="event_date">Data do evento</label>
+        <input type="date" name="event_date" id="event_date">
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<br>
+    <p>Menu de ordenação</p>
+    <ul>
+        <li>Nome</li>
+        <ul>
+            <li><a href="index.php?select_type=0">Alfabética</a></li>
+            <li><a href="index.php?select_type=1">Alfabética invertida</a></li>
+        </ul>
+        <li>Data</li>
+        <ul>
+            <li><a href="index.php?select_type=2">Próximos</a></li>
+            <li><a href="index.php?select_type=3">Distantes</a></li>
+        </ul>
+    </ul>
+<br>
+<table border="2">
+        <tr>
+            <td>ID</td>
+            <td>Event</td>
+            <td>Date</td>
+            <td>Is Weekend ?</td>
+            <td colspan="2">Ações</td>
+        </tr>
+        {% for event in events %}
+            <tr>
+                <td>{{event.id}}</td>
+                <td>{{event.title}}</td>
+                <td>{{event.event_date}}</td>
+                <td>{{event.is_weekend ? "Yes" : "No"}}</td>
+                <td><a href="editEvent.php?id={{event.id}}"><i class="fa-solid fa-pen"></i></a></td>
+                <td><a href="deleteEvent.php?id={{event.id}}"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </table>
+
+{% endblock %}
